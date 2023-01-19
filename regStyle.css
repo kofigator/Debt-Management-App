@@ -1,0 +1,145 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+body {
+    display: flex;
+    background-image: url('img/bg2.jpg');
+    position: initial;
+    background-size: stretch;
+    justify-content: center;
+}
+
+#page{
+    display: flex;
+    flex-direction: column;
+    background-color: aqua;  
+    width: fit-content; 
+    margin-top: 35px;
+}
+
+.row {
+    margin-left: 15px;
+    padding-bottom: 15px;
+}
+
+.row input[type=text], input[type=email]{
+    width: 350px;
+    height: 30px;
+    font-size: 20px;
+    border-radius: 8px;
+    margin-right: 30px;
+    padding: 2px 20px;
+}
+
+.row input[type=text]:focus, input[type=email]:focus{
+    background-color: rgb(211, 211, 243);
+}
+
+.row input[type=submit] {
+    margin-top: 15px;
+    height: 40px;
+    width: 80px;
+    margin-left: 160px;
+    border-radius: 7px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+input[type=submit]:hover {
+    background-color: #00796B;
+    color: #fff;
+    }
+
+.row label{
+    display: flex;
+    font-size: xx-large;
+    padding: 10px 30px;
+    justify-content: center;
+}
+
+
+@media only screen and (max-width: 768px) {
+    body {
+        background-image: url('r3.jpg');
+        background-size: stretch;
+        display: flex;
+        margin-top: 70px;
+    }
+
+    #page{
+        display: flex;
+        flex-direction: column;
+        background-color: aqua;  
+        width: 70%; 
+        
+    }
+
+    .row input[type=text], input[type=email]{
+        width: 90%;
+        height: fit-content;
+        font-size: 20px;
+        border-radius: 8px;
+        
+    }
+
+    .row label{
+        display: flex;
+        font-size: x-larger; 
+    }
+    
+    .row input[type=submit] {
+        height: 50px;
+        width: 70px;
+        margin-left: 250px;
+        border-radius: 7px;
+        cursor: pointer;
+        text-decoration: none;
+        
+    }
+
+}
+
+
+@media only screen and (max-width: 479px) {
+    body {
+        background-image: url('r1.jpg');
+        background-size: cover;
+        display: flex;
+        margin-top: 130px;
+    }
+
+    #page{
+        display: flex;
+        flex-direction: column;
+        background-color: aqua;  
+        width: 70%; 
+        
+    }
+
+    .row input[type=text], input[type=email]{
+        width: 75%;
+        height: fit-content;
+        font-size: 10px;
+        border-radius: 8px;
+        
+        
+    }
+
+    .row label{
+        display: flex;
+        font-size: medium; 
+    }
+    
+    .row input[type=submit] {
+        height: 30px;
+        width: 60px;
+        margin-left: 85px;
+        border-radius: 7px;
+        cursor: pointer;
+        text-decoration: none;
+        
+    }
+
+}
