@@ -7,7 +7,7 @@ body {
     display: flex;
     background-image: url('img/bg2.jpg');
     position: initial;
-    background-size: stretch;
+    background-size: cover;
     justify-content: center;
 }
 
@@ -24,7 +24,7 @@ body {
     padding-bottom: 15px;
 }
 
-.row input[type=text], input[type=email]{
+.row input[type=text], input[type=email], input[type=password] {
     width: 350px;
     height: 30px;
     font-size: 20px;
@@ -65,7 +65,7 @@ input[type=submit]:hover {
         background-image: url('r3.jpg');
         background-size: stretch;
         display: flex;
-        margin-top: 70px;
+        margin-top: 130px;
     }
 
     #page{
@@ -76,23 +76,24 @@ input[type=submit]:hover {
         
     }
 
-    .row input[type=text], input[type=email]{
-        width: 90%;
+    .row input[type=text], input[type=email], input[type=password] {
+        width: 75%;
         height: fit-content;
-        font-size: 20px;
+        font-size: 10px;
         border-radius: 8px;
+        
         
     }
 
     .row label{
         display: flex;
-        font-size: x-larger; 
+        font-size: medium; 
     }
     
     .row input[type=submit] {
-        height: 50px;
-        width: 70px;
-        margin-left: 250px;
+        height: 30px;
+        width: 60px;
+        margin-left: 85px;
         border-radius: 7px;
         cursor: pointer;
         text-decoration: none;
@@ -118,7 +119,7 @@ input[type=submit]:hover {
         
     }
 
-    .row input[type=text], input[type=email]{
+    .row input[type=text], input[type=email], input[type=password] {
         width: 75%;
         height: fit-content;
         font-size: 10px;

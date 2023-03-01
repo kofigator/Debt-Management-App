@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Point of Sale</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript" src="script.js"></script>
+    <style>
+        * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+}
+
+.header {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+}
+
+.container {
+  margin: 20px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.item-area {
+  background-color: #f2f2f2;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.item-image {
+  width: 80px;
+  height: 80px;
+  margin-right: 10px;
+}
+
+.item-name {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.item-price {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.item-quantity {
+  display: flex;
+  align-items: center;
+}
+
+.item-quantity input {
+  width: 50px;
+  padding: 5px;
+  margin-right: 10px;
+}
+
+.payment-mode {
+  margin-bottom: 10px;
+}
+
+.total-price {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.search-box {
+  margin-bottom: 10px;
+}
+
+.customer-name {
+  margin-bottom: 10px;
+}
+
+.btn {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #555;
+}
+
+@media screen and (max-width: 768px) {
+  .item {
+    flex-direction: column;
+  }
+
+  .item-image {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .item-quantity {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .item-quantity input {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}
+
+    </style>
+</head>
+<body>
+	<div class="container">
+		<header>
+			<h1>Point of Sale</h1>
+			<div class="search-container">
+				<input type="text" placeholder="Search for item...">
+				<button type="submit"><i class="fa fa-search"></i></button>
+			</div>
+			<div class="customer-container">
+				<label for="customer-name">Customer:</label>
+				<input type="text" id="customer-name">
+			</div>
+		</header>
+		<main>
+			<div class="items-container">
+				<h2>Items</h2>
+				<select id="payment-mode">
+					<option value="cash">Cash</option>
+					<option value="card">Card</option>
+				</select>
+				<table>
+					<thead>
+						<tr>
+							<th>Item</th>
+							<th>Price</th>
+							<th>Quantity</th>
+							<th>Total</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Burger</td>
+							<td>$5</td>
+							<td><input type="number" min="1" value="1"></td>
+							<td>$5</td>
+							<td><button class="remove-item">Remove</button></td>
+						</tr>
+						<tr>
+							<td>Pizza</td>
+							<td>$10</td>
+							<td><input type="number" min="1" value="1"></td>
+							<td>$10</td>
+							<td><button class="remove-item">Remove</button></td>
+						</tr>
+						<tr>
+							<td>Salad</td>
+							<td>$8</td>
+							<td><input type="number" min="1" value="1"></td>
+							<td>$8</td>
+							<td><button class="remove-item">Remove</button></td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="total-container">
+					<h3>Total: <span id="total-price">$23</span></h3>
+				</div>
+			</div>
+			<div class="checkout-container">
+				<button class="checkout-button">Checkout</button>
+			</div>
+		</main>
+	</div>
+    <script>
+        // define variables for DOM elements
+const itemSelect = document.getElementById('item-select');
+const quantityInput = document.getElementById('quantity-input');
+const paymentSelect = document.getElementById('payment-select');
+const itemDisplay = document.getElementById('item-display');
+const totalDisplay = document.getElementById('total-display');
+const searchInput = document.getElementById('search-input');
+const customerInput = document.getElementById('customer-input');
+const addItemBtn = document.getElementById('add-item-btn');
+const checkoutBtn = document.getElementById('checkout-btn');
+
+// define array to store selected items
+let selectedItems = [];
+
+// define function to add item to selected items array
+function addItem() {
+  const selectedItem = itemSelect.value;
+  const selectedQuantity = parseInt(quantityInput.value);
+  const selectedPrice = selectedQuantity * itemSelect.options[itemSelect.selectedIndex].dataset.price;
+  selectedItems.push({ item: selectedItem, quantity: selectedQuantity, price: selectedPrice });
+  renderItems();
+}
+
+// define function to remove item from selected items array
+function removeItem(index) {
+  selectedItems.splice(index, 1);
+  renderItems();
+}
+
+// define function to render selected items to DOM
+function renderItems() {
+  itemDisplay.innerHTML = '';
+  let total = 0;
+  selectedItems.forEach((item, index) => {
+    const itemPrice = parseFloat(item.price).toFixed(2);
+    itemDisplay.innerHTML += `
+      <div class="selected-item">
+        <span>${item.item} (${item.quantity})</span>
+        <span>$${itemPrice}</span>
+        <button class="remove-item-btn" onclick="removeItem(${index})">X</button>
+      </div>
+    `;
+    total += item.price;
+  });
+  totalDisplay.textContent = `$${parseFloat(total).toFixed(2)}`;
+}
+
+// define function to handle checkout button click
+function checkout() {
+  const paymentMethod = paymentSelect.value;
+  const customerName = customerInput.value;
+  const selectedItemsList = selectedItems.map(item => `${item.item} (${item.quantity}) - $${parseFloat(item.price).toFixed(2)}`).join('\n');
+  const emailBody = `Customer Name: ${customerName}\n\nSelected Items:\n${selectedItemsList}\n\nPayment Method: ${paymentMethod}\nTotal Price: ${totalDisplay.textContent}`;
+  window.open(`mailto:example@example.com?subject=New Order&body=${encodeURIComponent(emailBody)}`);
+  // reset selected items array and form inputs
+  selectedItems = [];
+  itemDisplay.innerHTML = '';
+  totalDisplay.textContent = '$0.00';
+  quantityInput.value = '1';
+  paymentSelect.value = 'Cash';
+  searchInput.value = '';
+  customerInput.value = '';
+}
+
+// add event listeners to form inputs and buttons
+addItemBtn.addEventListener('click', addItem);
+checkoutBtn.addEventListener('click', checkout);
+
+    </script>
+</body>
+</html>
