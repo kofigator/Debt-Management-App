@@ -21,23 +21,22 @@ USE debt;
      );
 
  CREATE TABLE customers(
-     cust_id INT(10) PRIMARY KEY NOT NULL,
+     cust_id INT(10) PRIMARY KEY AUTO_INCREMENT,
      u_id VARCHAR(20),
      name VARCHAR(150) NOT NULL,
      number VARCHAR (20) NOT NULL,
      gender CHAR(1) NOT NULL,
-     address VARCHAR(200) NOT NULL,
+     address VARCHAR(200),
      CONSTRAINT FK_u_id1 FOREIGN KEY (u_id) REFERENCES users(phone_number) ON UPDATE CASCADE
      );
 
  CREATE TABLE items(
-     item_id INT(10) NOT NULL,
+     item_id INT(10) PRIMARY KEY AUTO_INCREMENT,
      u_id VARCHAR(20),
      item_name VARCHAR(150) NOT NULL,
-     description VARCHAR(300) NOT NULL,
+     description VARCHAR(300),
      unit_price DECIMAL(6,2) NOT NULL,
      quantity INT(10) NOT NULL,
-     CONSTRAINT PK_items PRIMARY KEY (item_id),
      CONSTRAINT FK_u_id2 FOREIGN KEY (u_id) REFERENCES users(phone_number) ON UPDATE CASCADE
      );
 

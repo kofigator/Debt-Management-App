@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Load Data from Database while Typing using AJAX</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+	<label for="item">Search for item: </label>
+	<input type="text" id="item" name="item" onkeyup="loadData()" autocomplete="off">
+	<div id="itemList"></div>
+
+	<script>
+		function loadData() {
+			var input = document.getElementById("item").value;
+			$.ajax({
+				type: "POST",
+				url: "fetch_data.php",
+				data: {input: input},
+				success: function(data) {
+					$("#itemList").html(data);
+				}
+			});
+		}
+	</script>
+</body>
+</html>
